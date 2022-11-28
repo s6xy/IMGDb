@@ -53,7 +53,7 @@ export function Connect(key: string): Handle {
     var keyPath = path.join(appData, "imgdb/keys.json")
 
     if (!fs.existsSync(keyPath)) throw new Error("Key registry doesn't exist - Have you tried generating a key?")
-    var keys = JSON.parse(JSON.stringify(Buffer.from(fs.readFileSync(keyPath)).toString()));
+    var keys = JSON.parse(Buffer.from(fs.readFileSync(keyPath)).toString());
 
     if (!keys[key]) throw new Error(`Key '${key}' does not exist - Have you tried generating a key?`)
 

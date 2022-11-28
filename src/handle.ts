@@ -3,17 +3,16 @@ import Settings from "./i/Settings";
 import { read } from "./imageHandler";
 
 export default class Handle {
-    // private key: Settings;
+    private key: Settings;
 
     constructor(key: string) {
-        console.log(key[0])
-        // let ascii = key.split("@~@")
+        let ascii = Buffer.from(key, 'base64').toString().split('@~@');
 
-        // this.key = {
-        //     path: ascii[0],
-        //     palette: ascii[]
-        // }
+        this.key = {
+            path: ascii[0],
+            palette: JSON.parse(ascii[1])
+        }
 
-        // read(this.key);
+        read(this.key);
     }
 }
