@@ -1,3 +1,4 @@
+import Response from "../i/Response";
 import Settings from "../i/Settings";
 
 export default abstract class ImageEncoder {
@@ -6,4 +7,6 @@ export default abstract class ImageEncoder {
     constructor(key: Settings) {
         this.key = key;
     }
+
+
 }

@@ -1,11 +1,10 @@
 import * as _ from 'jimp';
 import Palette, { Character } from '../i/Palette';
+import Response from '../i/Response';
 import Settings from '../i/Settings';
 
 export default abstract class ImageDecoder {
     private key: Settings;
-    content: Response | undefined = undefined;
-    columns: string[] = [];
 
     constructor(key: Settings) {
         this.key = key;
@@ -47,11 +46,13 @@ export default abstract class ImageDecoder {
                                 if (isHeaderMode) {
                                     switch (currentHeader) {
                                         case "COLUMNS":
-
+                                            this.columns[currentEditIndex] += pair.char;
                                             break;
                                         default:
                                             throw new Error("1#IHR");
                                     }
+                                } else {
+                                    this.content.DATA[currentEditIndex] += pair.char;
                                 }
                             }
                             break;
@@ -61,7 +62,7 @@ export default abstract class ImageDecoder {
         })
     }
 
-    private searchForColour(palette: Palette, colour: string): Character {
+    searchForColour(palette: Palette, colour: string): Character {
         if (colour == palette.SPACE.toLowerCase()) return { char: "SPACE", color: palette.SPACE };
         if (colour == palette.OVERFLOW.toLowerCase()) return { char: "OVERFLOW", color: palette.OVERFLOW };
         if (colour == palette.HEADER.toLowerCase()) return { char: "HEADER", color: palette.HEADER };
