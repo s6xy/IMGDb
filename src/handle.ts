@@ -1,32 +1,21 @@
 import Palette from "./i/Palette";
 import Settings from "./i/Settings";
-import { read } from "./imageHandler";
+import imageDecoder from "./img/decoder";
 
-export default class Handle {
-    private key: Settings;
+export default class Handle extends imageDecoder {
+    currentEvent: Event = Event.NIL;
 
-    private currentEvent: Event = Event.NIL;
-    private currentResults: string | string[] = "";
-
-    constructor(key: string) {
-        let ascii = Buffer.from(key, 'base64').toString().split('@~@');
-
-        this.key = {
-            path: ascii[0],
-            palette: JSON.parse(ascii[1])
-        }
-
-        read(this.key);
+    constructor(key: Settings) {
+        super(key);
     }
 
-    getByColumn(column: string) {
-
+    getColumn(column: string) {
+        this.currentEvent = Event.GET;
     }
 }
 
 enum Event {
     NIL,
     GET,
-    LIKE,
-
+    LIKE
 }
