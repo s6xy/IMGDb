@@ -1,12 +1,9 @@
 export default interface Column {
     Name: string,
-    Type: Type,
-
-
+    Type: string,
 }
 
-export enum Type {
-    STRING = "String",
-    BOOL = "Bool",
-    INT = "Int"
+export interface validColumnType {
+    Name: string,
+    Typing: string[]
 }
