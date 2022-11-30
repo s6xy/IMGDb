@@ -5,6 +5,9 @@ import { read } from "./imageHandler";
 export default class Handle {
     private key: Settings;
 
+    private currentEvent: Event = Event.NIL;
+    private currentResults: string | string[] = "";
+
     constructor(key: string) {
         let ascii = Buffer.from(key, 'base64').toString().split('@~@');
 
@@ -15,4 +18,15 @@ export default class Handle {
 
         read(this.key);
     }
+
+    getByColumn(column: string) {
+
+    }
+}
+
+enum Event {
+    NIL,
+    GET,
+    LIKE,
+
 }
